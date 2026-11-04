@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PolliStretch — Install</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="PolliStretch — StretchText reading extension for any webpage. Powered by your own Pollen (BYOP).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --color-surface: #fbfaf7;
+    --color-surface-alt: #f4f1ea;
+    --color-text: #1c1a17;
+    --color-text-muted: #8a8578;
+    --color-accent: #b0812a;
+    --color-accent-hover: #8a6d1f;
+    --color-border: #e2ddd0;
+    --font: "Inter", -apple-system, "Segoe UI", sans-serif;
+    --space-1: 4px; --space-2: 8px; --space-3: 16px; --space-4: 24px; --space-5: 32px; --space-6: 48px;
+    --radius: 12px; --radius-sm: 8px;
+    --shadow: 0 16px 44px rgba(36,31,24,.12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-surface: #1a1815;
+      --color-surface-alt: #241f18;
+      --color-text: #f4f1ea;
+      --color-text-muted: #a09a8c;
+      --color-accent: #d8c9a0;
+      --color-accent-hover: #f0e4c8;
+      --color-border: #3d372d;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; font-family: var(--font); font-size: 16px; line-height: 1.6;
+    color: var(--color-text); background: var(--color-surface);
+  }
+  a { color: var(--color-accent); text-decoration: none; }
+  a:hover { color: var(--color-accent-hover); text-decoration: underline; }
+  .container { max-width: 800px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+  header { text-align: center; margin-bottom: var(--space-6); }
+  .logo {
+    width: 80px; height: 80px; border-radius: 20px;
+    background: #241f18; display: inline-grid; place-items: center;
+    margin-bottom: var(--space-3); box-shadow: var(--shadow);
+  }
+  .logo svg { width: 48px; height: 48px; }
+  h1 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 var(--space-2); font-weight: 700; letter-spacing: -0.02em; }
+  .tagline { font-size: 1.1rem; color: var(--color-text-muted); margin: 0 0 var(--space-5); }
+  .badge-row { display: flex; justify-content: center; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-4); }
+  .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 1px solid var(--color-border); background: var(--color-surface-alt); color: var(--color-text); }
+  .badge svg { width: 14px; height: 14px; }
+  .section { margin-bottom: var(--space-6); }
+  .section h2 { font-size: 1.25rem; margin: 0 0 var(--space-3); font-weight: 600; }
+  .card {
+    background: var(--color-surface-alt); border: 1px solid var(--color-border);
+    border-radius: var(--radius); padding: var(--space-4) var(--space-5);
+    box-shadow: var(--shadow);
+  }
+  .card + .card { margin-top: var(--space-4); }
+  .step { display: flex; gap: var(--space-3); margin-bottom: var(--space-3); }
+  .step:last-child { margin-bottom: 0; }
+  .step-num { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--color-accent); color: #1c1a17; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+  .step-text { flex: 1; padding-top: 2px; }
+  .step-text code { background: var(--color-surface); padding: 2px 6px; border-radius: 4px; font-size: .9em; }
+  .btn-row { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: var(--radius-sm); font-weight: 600; font-size: 14px; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text); cursor: pointer; text-decoration: none; }
+  .btn:hover { background: var(--color-surface-alt); text-decoration: none; }
+  .btn.primary { background: var(--color-accent); border-color: var(--color-accent); color: #1c1a17; }
+  .btn.primary:hover { background: var(--color-accent-hover); }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); }
+  .feature { padding: var(--space-3) var(--space-4); background: var(--color-surface-alt); border: 1px solid var(--color-border); border-radius: var(--radius-sm); }
+  .feature strong { display: block; margin-bottom: 4px; }
+  .feature p { margin: 0; font-size: .95rem; color: var(--color-text-muted); }
+  footer { text-align: center; padding: var(--space-5) 0; color: var(--color-text-muted); font-size: .9rem; border-top: 1px solid var(--color-border); margin-top: var(--space-6); }
+  footer a { color: var(--color-text-muted); }
+  .screenshot { margin-top: var(--space-4); border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--color-border); background: var(--color-surface); }
+  .screenshot img { width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="128" height="128" rx="24" fill="#241f18"/>
+          <path d="M32 64L56 88L96 40" stroke="#f4f1ea" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1>PolliStretch</h1>
+      <p class="tagline">Read less. Understand more. Explore anything.<br>Progressive-disclosure reading for any webpage — powered by your own Pollen.</p>
+      <div class="badge-row">
+        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 22 4 22"/><line x1="20" y1="1" x2="20" y2="23"/></svg> Manifest V3</span>
+        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg> BYOP Device Auth</span>
+        <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> 99 tests</span>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>Install (Load Unpacked)</h2>
+      <div class="card">
+        <ol class="step">
+          <span class="step-num">1</span>
+          <div class="step-text">Download the latest <a href="https://github.com/silver-sand/polli-stretch/releases/latest"><strong>release ZIP</strong></a> (or clone and run <code>npm run build</code>).</div>
+        </ol>
+        <ol class="step" start="2">
+          <span class="step-num">2</span>
+          <div class="step-text">Extract the ZIP to a folder.</div>
+        </ol>
+        <ol class="step" start="3">
+          <span class="step-num">3</span>
+          <div class="step-text">Open <code>chrome://extensions</code> (or <code>brave://extensions</code>, <code>edge://extensions</code>) and enable <strong>Developer mode</strong> (top right).</div>
+        </ol>
+        <ol class="step" start="4">
+          <span class="step-num">4</span>
+          <div class="step-text">Click <strong>Load unpacked</strong> and select the <code>dist/</code> folder inside the extracted release.</div>
+        </ol>
+        <div class="btn-row">
+          <a class="btn primary" href="https://github.com/silver-sand/polli-stretch/releases/latest">Latest Release →</a>
+          <a class="btn" href="https://github.com/silver-sand/polli-stretch">View Repository →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How it works</h2>
+      <div class="features">
+        <div class="feature">
+          <strong>Kernel → Context → Full</strong>
+          <p>One AI call returns a condensed kernel and context layer; the full original text is always restored from a local DOM snapshot (zero hallucination).</p>
+        </div>
+        <div class="feature">
+          <strong>BYOP — Your Pollen</strong>
+          <p>Pollinations device authorization stores your token only in <code>chrome.storage.session</code>. No developer-funded fallback, no backend.</p>
+        </div>
+        <div class="feature">
+          <strong>Faithful restoration</strong>
+          <p>Original paragraph subtrees cloned before mutation; restore replaces by reference, preserving node identity for external references.</p>
+        </div>
+        <div class="feature">
+          <strong>Editorial UX</strong>
+          <p>Inline chevrons, floating toolbar (Expand All / Collapse All / Restore / Deactivate), React popup with depth slider, themes, model picker.</p>
+        </div>
+        <div class="feature">
+          <strong>IndexedDB cache</strong>
+          <p>Keyed by chunk hash + model; identical re-activation costs zero Pollen. 7-day TTL, manual clear.</p>
+        </div>
+        <div class="feature">
+          <strong>Keyboard shortcut</strong>
+          <p><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> activates on the current page; <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> opens the popup.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Preview</h2>
+      <div class="screenshot">
+        <img src="../screenshot/polli-stretch-screenshot.png" alt="PolliStretch in action: article with kernel/context/full states, chevrons, toolbar, and popup">
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Built for Pollinations Quest #17998</h2>
+      <div class="card">
+        <p>This extension was built for <a href="https://github.com/pollinations/pollinations/issues/17998">Pollinations Quest #17998</a>. It uses the Pollinations text generation API with the reader's own Pollen balance via the official device authorization flow.</p>
+        <p style="margin-top: var(--space-2);"><a href="https://pollinations.ai/?ref=badge"><img src="https://raw.githubusercontent.com/pollinations/pollinations/main/packages/ui/src/brand/badge-made-with.svg" alt="Made with pollinations.ai" style="height: 28px;"></a></p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Source: <a href="https://github.com/silver-sand/polli-stretch">github.com/silver-sand/polli-stretch</a> · MIT License · <a href="https://github.com/silver-sand/polli-stretch/blob/main/PRIVACY.md">Privacy Policy</a></p>
+      <p>App submission: <a href="https://github.com/pollinations/pollinations/issues/19167">pollinations/pollinations#19167</a></p>
+    </footer>
+  </div>
+</body>
+</html>
