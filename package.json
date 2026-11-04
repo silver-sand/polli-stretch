@@ -1,0 +1,38 @@
+{
+  "name": "polli-stretch",
+  "version": "0.1.0",
+  "description": "PolliStretch — Read less. Understand more. Explore anything. A StretchText browser extension powered by the reader's own Pollen.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "icons:png": "node scripts/convert-icons.mjs",
+    "zip": "node -e \"require('node:child_process').execSync('powershell.exe -NoProfile -Command \\\"Compress-Archive -Path dist -DestinationPath polli-stretch-v0.1.0.zip -Force\\\"', { stdio: 'inherit' })\""
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.0",
+    "lucide-react": "^0.439.0",
+    "motion": "^11.11.10",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.299",
+    "@types/node": "^22.7.0",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "esbuild": "^0.24.0",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

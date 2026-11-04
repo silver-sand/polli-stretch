@@ -1,0 +1,337 @@
+/**
+ * PolliStretch Content Script Styles
+ *
+ * Scoped, high-specificity styles using .polli-* prefix.
+ * Inherits page currentColor for theme adaptivity.
+ * Compact fixed toolbar, subtle inline controls.
+ */
+
+:root {
+  --polli-z-toolbar: 2147483640;
+  --polli-z-chevron: 2147483630;
+  --polli-z-toast: 2147483647;
+  --polli-radius: 6px;
+  --polli-gap: 8px;
+  --polli-transition: 120ms ease;
+  --polli-focus-ring: 0 0 0 2px currentColor;
+}
+
+/* ============================================================
+ * TOOLBAR — fixed bottom, compact, page-adaptive
+ * ============================================================ */
+.polli-toolbar {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--polli-gap);
+  padding: 8px 12px;
+  background: Canvas;
+  color: CanvasText;
+  border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
+  border-radius: var(--polli-radius);
+  box-shadow:
+    0 4px 12px color-mix(in oklab, CanvasText 15%, transparent),
+    0 0 0 1px color-mix(in oklab, CanvasText 10%, transparent);
+  z-index: var(--polli-z-toolbar);
+  font: 13px/1.4 system-ui, -apple-system, sans-serif;
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+  transition: opacity var(--polli-transition), transform var(--polli-transition);
+  pointer-events: none;
+}
+
+.polli-toolbar.polli-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.polli-toolbar[data-theme="dark"] {
+  background: Canvas;
+  color: CanvasText;
+}
+
+.polli-toolbar__group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.polli-toolbar__divider {
+  width: 1px;
+  height: 20px;
+  background: color-mix(in oklab, CanvasText 20%, transparent);
+  margin: 0 4px;
+}
+
+.polli-toolbar__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  background: transparent;
+  color: inherit;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font: inherit;
+  cursor: pointer;
+  transition: background var(--polli-transition), border-color var(--polli-transition);
+}
+
+.polli-toolbar__btn:hover {
+  background: color-mix(in oklab, CanvasText 10%, transparent);
+  border-color: color-mix(in oklab, CanvasText 20%, transparent);
+}
+
+.polli-toolbar__btn:focus-visible {
+  outline: none;
+  box-shadow: var(--polli-focus-ring);
+}
+
+.polli-toolbar__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.polli-toolbar__btn[data-active="true"] {
+  background: color-mix(in oklab, CanvasText 15%, transparent);
+  border-color: color-mix(in oklab, CanvasText 30%, transparent);
+}
+
+.polli-toolbar__label {
+  font-size: 12px;
+  color: inherit;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+.polli-toolbar__progress {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 120px;
+}
+
+.polli-toolbar__progress-bar {
+  flex: 1;
+  height: 4px;
+  background: color-mix(in oklab, CanvasText 15%, transparent);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.polli-toolbar__progress-fill {
+  height: 100%;
+  background: currentColor;
+  border-radius: 2px;
+  transition: width 200ms ease;
+}
+
+.polli-toolbar__progress-text {
+  font-size: 11px;
+  opacity: 0.7;
+  min-width: 3ch;
+  text-align: right;
+}
+
+/* ============================================================
+ * INLINE CHEVRON — subtle dotted-underline span after paragraph
+ * ============================================================ */
+.polli-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  margin-bottom: -2px;
+  vertical-align: baseline;
+  color: inherit;
+  opacity: 0;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: opacity var(--polli-transition), background var(--polli-transition);
+  user-select: none;
+}
+
+.polli-chevron:hover,
+.polli-chevron:focus-visible {
+  opacity: 1;
+  background: color-mix(in oklab, CanvasText 10%, transparent);
+}
+
+.polli-chevron:focus-visible {
+  outline: none;
+  box-shadow: var(--polli-focus-ring);
+}
+
+.polli-chevron[data-level="0"]::after { content: "▸"; font-size: 10px; }
+.polli-chevron[data-level="1"]::after { content: "▸▸"; font-size: 10px; }
+.polli-chevron[data-level="2"]::after { content: "▸▸▸"; font-size: 10px; }
+
+/* Show chevron on paragraph hover/focus */
+.polli-paragraph:hover .polli-chevron,
+.polli-paragraph:focus-within .polli-chevron {
+  opacity: 0.6;
+}
+
+.polli-paragraph:hover .polli-chevron:hover,
+.polli-paragraph:focus-within .polli-chevron:focus {
+  opacity: 1;
+}
+
+/* ============================================================
+ * PARAGRAPH WRAPPER — guards our mutations
+ * ============================================================ */
+.polli-paragraph {
+  position: relative;
+}
+
+.polli-paragraph[data-polli-active="true"] {
+  /* Active paragraphs get the inline controls */
+}
+
+.polli-paragraph[data-polli-level="0"] .polli-chevron::after { content: "▸"; }
+.polli-paragraph[data-polli-level="1"] .polli-chevron::after { content: "▸▸"; }
+.polli-paragraph[data-polli-level="2"] .polli-chevron::after { content: "▸▸▸"; }
+
+/* Kernel: text only, no inline elements */
+.polli-paragraph[data-polli-level="0"] > *:not(.polli-chevron):not([data-polli="kernel-wrapper"]) {
+  display: none;
+}
+
+.polli-paragraph[data-polli-level="0"] [data-polli="kernel-wrapper"] {
+  display: inline;
+}
+
+/* Context: text only, no inline elements */
+.polli-paragraph[data-polli-level="1"] > *:not(.polli-chevron):not([data-polli="context-wrapper"]) {
+  display: none;
+}
+
+.polli-paragraph[data-polli-level="1"] [data-polli="context-wrapper"] {
+  display: inline;
+}
+
+/* Full: show everything (original content restored) */
+
+/* ============================================================
+ * TOAST NOTIFICATIONS
+ * ============================================================ */
+.polli-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 70px;
+  transform: translateX(-50%) translateY(8px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: Canvas;
+  color: CanvasText;
+  border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
+  border-radius: var(--polli-radius);
+  box-shadow:
+    0 4px 16px color-mix(in oklab, CanvasText 20%, transparent),
+    0 0 0 1px color-mix(in oklab, CanvasText 10%, transparent);
+  z-index: var(--polli-z-toast);
+  font: 13px/1.4 system-ui, -apple-system, sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--polli-transition), transform var(--polli-transition);
+}
+
+.polli-toast.polli-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.polli-toast[data-type="error"] {
+  border-color: color-mix(in oklab, rgb(255 100 100) 60%, transparent);
+}
+
+.polli-toast[data-type="error"]::before {
+  content: "✕";
+  color: rgb(255 100 100);
+}
+
+.polli-toast[data-type="success"]::before {
+  content: "✓";
+  color: rgb(100 200 100);
+}
+
+.polli-toast[data-type="info"]::before {
+  content: "ℹ";
+  color: rgb(100 180 255);
+}
+
+/* ============================================================
+ * LOADING STATE
+ * ============================================================ */
+.polli-loading {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 32px;
+  background: Canvas;
+  color: CanvasText;
+  border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
+  border-radius: var(--polli-radius);
+  box-shadow:
+    0 8px 32px color-mix(in oklab, CanvasText 25%, transparent),
+    0 0 0 1px color-mix(in oklab, CanvasText 10%, transparent);
+  z-index: var(--polli-z-toast);
+  font: 14px/1.5 system-ui, -apple-system, sans-serif;
+}
+
+.polli-loading__spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid color-mix(in oklab, CanvasText 20%, transparent);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: polli-spin 800ms linear infinite;
+}
+
+@keyframes polli-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+ * RESTRICTED ELEMENTS PROTECTION
+ * ============================================================ */
+.polli-paragraph button,
+.polli-paragraph [contenteditable],
+.polli-paragraph input,
+.polli-paragraph select,
+.polli-paragraph textarea,
+.polli-paragraph a[href],
+.polli-paragraph [role="button"] {
+  /* These will be preserved in full mode only */
+}
+
+/* Ensure our injected elements don't break page layout */
+[data-polli] {
+  all: initial;
+  display: revert;
+  unicode-bidi: isolate;
+}
+
+/* Prevent page styles from affecting our toolbar */
+.polli-toolbar *,
+.polli-toast *,
+.polli-chevron *,
+.polli-loading * {
+  box-sizing: border-box;
+}
