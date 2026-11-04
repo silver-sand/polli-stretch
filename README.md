@@ -2,7 +2,7 @@
 
 **Read less. Understand more. Explore anything.**
 
-<a href="https://pollinations.ai/?ref=badge"><img src="https://raw.githubusercontent.com/pollinations/pollinations/main/packages/ui/src/brand/badge-made-with.svg" alt="Made with pollinations.ai" style="height: 28px;"></a>
+[![Made with pollinations.ai](https://raw.githubusercontent.com/pollinations/pollinations/main/packages/ui/src/brand/badge-made-with.svg)](https://pollinations.ai/?ref=badge)
 
 A Manifest V3 Chrome extension that brings Ted Nelson's **StretchText** (progressive disclosure) to any webpage. PolliStretch transforms article text into a hierarchical reading experience — **Kernel** (essential meaning) → **Context** (supporting detail) → **Full** (original text) — with inline expansion, powered by your own Pollen via **BYOP** (Bring Your Own Pollen) device authorization.
 
